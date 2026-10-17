@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: blob: https://cdn.modrinth.com https://media.forgecdn.net; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self'; connect-src 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prime Launcher</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ============ مجموعة الأيقونات (SVG sprite) — 24×24، خط 1.75، currentColor ============ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-logo" viewBox="0 0 48 48"><polygon points="24,4 42,14 24,24 6,14" fill="#6ff5aa"/><polygon points="6,14 24,24 24,44 6,34" fill="#22b866"/><polygon points="24,24 42,14 42,34 24,44" fill="#188a4e"/><g transform="matrix(1 .5556 0 1 6 14)" fill="#fff"><rect x="4" y="3" width="2.6" height="2.6"/><rect x="7.4" y="3" width="2.6" height="2.6"/><rect x="4" y="6.4" width="2.6" height="2.6"/><rect x="10.8" y="6.4" width="2.6" height="2.6"/><rect x="4" y="9.8" width="2.6" height="2.6"/><rect x="7.4" y="9.8" width="2.6" height="2.6"/><rect x="4" y="13.2" width="2.6" height="2.6"/><rect x="4" y="16.6" width="2.6" height="2.6"/></g></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11l8-7 8 7v9H4z M10 20v-6h4v6"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24"><path d="M4 4h6v6H4z M14 4h6v6h-6z M4 14h6v6H4z M14 14h6v6h-6z"/></symbol>
+  <symbol id="i-cube" viewBox="0 0 24 24"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z M4 7.5l8 4.5 8-4.5 M12 12v9"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11 M7 11l5 5 5-5 M5 20h14"/></symbol>
+  <symbol id="i-settings" viewBox="0 0 24 24"><path d="M10 3h4v2.2l1.8.8 1.6-1.6 2.8 2.8-1.6 1.6.8 1.8H21v4h-2.2l-.8 1.8 1.6 1.6-2.8 2.8-1.6-1.6-1.8.8V21h-4v-2.2l-1.8-.8-1.6 1.6-2.8-2.8 1.6-1.6-.8-1.8H3v-4h2.2l.8-1.8L4.4 7.2l2.8-2.8L8.8 6l1.2-.8z M10 10h4v4h-4z"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><path d="M9 4h6v6H9z M5 20v-4h14v4z"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><path d="M10.5 4a6.5 6.5 0 100 13 6.5 6.5 0 000-13z M16 16l4.5 4.5"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><path d="M9 9h11v11H9z M5 15H4V4h11v1"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></symbol>
+  <symbol id="i-chevron-down" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
+  <symbol id="i-server" viewBox="0 0 24 24"><path d="M4 4h16v6H4z M4 14h16v6H4z M8 7h.01 M8 17h.01"/></symbol>
+  <symbol id="i-news" viewBox="0 0 24 24"><path d="M5 4h14v16H5z M8 8h8 M8 12h8 M8 16h5"/></symbol>
+  <symbol id="i-shirt" viewBox="0 0 24 24"><path d="M8 4L3 8l3 3 2-1.5V20h8V9.5l2 1.5 3-3-5-4c-.5 1.5-2 2.5-4 2.5S8.5 5.5 8 4z"/></symbol>
+  <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 16V5 M7 9l5-5 5 5 M5 20h14"/></symbol>
+  <symbol id="i-image" viewBox="0 0 24 24"><path d="M4 5h16v14H4z M4 16l5-5 4 4 3-3 4 4 M15 9h.01"/></symbol>
+  <symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 6h7l2 2h9v11H3z"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16 M9 7V4h6v3 M6 7v13h12V7 M10 11v6 M14 11v6"/></symbol>
+  <symbol id="i-rotate" viewBox="0 0 24 24"><path d="M20 12a8 8 0 11-2.5-5.8 M20 4v4h-4"/></symbol>
+  <symbol id="i-more" viewBox="0 0 24 24"><path d="M12 5h.01 M12 12h.01 M12 19h.01" stroke-width="3.5"/></symbol>
+  <symbol id="i-edit" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z M13 7l4 4"/></symbol>
+  <symbol id="i-duplicate" viewBox="0 0 24 24"><path d="M8 8h12v12H8z M4 16V4h12"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12 M18 6L6 18"/></symbol>
+  <symbol id="i-minimize" viewBox="0 0 24 24"><path d="M6 12h12"/></symbol>
+  <symbol id="i-maximize" viewBox="0 0 24 24"><path d="M6 6h12v12H6z"/></symbol>
+  <symbol id="i-restore" viewBox="0 0 24 24"><path d="M8 8h10v10H8z M6 15V6h9"/></symbol>
+  <symbol id="i-wifi-bars" viewBox="0 0 24 24"><path d="M5 20v-3 M10 20v-7 M15 20v-11 M20 20V5"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><path d="M12 3a9 9 0 100 18 9 9 0 000-18z M12 11v6 M12 7.5h.01"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14 M5 12h14"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z M10 10h4v4h-4z"/></symbol>
+  <symbol id="i-eye-off" viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z M4 4l16 16"/></symbol>
+  <symbol id="i-key" viewBox="0 0 24 24"><path d="M3 9h10v6H3z M13 11h8 M18 11v4 M7 12h.01"/></symbol>
+  <symbol id="i-external" viewBox="0 0 24 24"><path d="M14 4h6v6 M20 4l-9 9 M18 14v6H4V6h6"/></symbol>
+  <symbol id="i-box" viewBox="0 0 24 24"><path d="M3 8l9-4 9 4v9l-9 4-9-4z M3 8l9 4 9-4 M12 12v9"/></symbol>
+  <symbol id="i-modrinth" viewBox="0 0 24 24"><path d="M12 3a9 9 0 109 9 M12 7.5a4.5 4.5 0 104.5 4.5 M12 12l8-8 M16 4h4v4"/></symbol>
+  <symbol id="i-curseforge" viewBox="0 0 24 24"><path d="M4 5h16l-1.5 3H13l1 3h-4l1-3H5.5z M8 11h8v4H8z M6 19h12v-4 M6 19v-4"/></symbol>
+  <symbol id="i-empty" viewBox="0 0 120 120"><g fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"><path d="M60 14l38 21v42L60 98 22 77V35z"/><path d="M22 35l38 21 38-21 M60 56v42" opacity=".6"/><path d="M44 106h32" opacity=".4"/></g></symbol>
+</svg>
+
+<!-- ============ شريط العنوان المخصص ============ -->
+<header class="titlebar">
+  <div class="tb-brand"><svg class="logo-sm"><use href="#i-logo"/></svg><span>Prime Launcher</span></div>
+  <div class="tb-controls">
+    <button class="tb-btn" id="win-min" aria-label="تصغير"><svg class="ico"><use href="#i-minimize"/></svg></button>
+    <button class="tb-btn" id="win-max" aria-label="تكبير"><svg class="ico"><use href="#i-maximize"/></svg></button>
+    <button class="tb-btn tb-close" id="win-close" aria-label="إغلاق"><svg class="ico"><use href="#i-close"/></svg></button>
+  </div>
+</header>
+
+<div class="app">
+  <!-- Prime navigation sidebar -->
+  <aside class="sidebar" aria-label="التنقل الرئيسي">
+    <button class="sb-logo" id="sb-home" aria-label="الرئيسية"><svg><use href="#i-logo"/></svg></button>
+    <div class="side-brand"><strong>PRIME</strong><span>LAUNCHER</span></div>
+    <nav class="side-nav" aria-label="أقسام اللانشر">
+      <button class="side-link active" data-prime-view="play"><svg class="ico"><use href="#i-home"/></svg><span>الرئيسية</span></button>
+      <button class="side-link" data-prime-view="play"><svg class="ico"><use href="#i-play"/></svg><span>العب الآن</span></button>
+      <button class="side-link" data-prime-view="installs"><svg class="ico"><use href="#i-cube"/></svg><span>الإصدارات</span></button>
+      <button class="side-link" data-prime-view="mods" data-prime-platform="modrinth"><svg class="ico"><use href="#i-grid"/></svg><span>المودات</span></button>
+      <button class="side-link" data-prime-view="skins"><svg class="ico"><use href="#i-shirt"/></svg><span>السكنات</span></button>
+      <button class="side-link" data-prime-view="mods" data-prime-platform="curseforge"><svg class="ico"><use href="#i-folder"/></svg><span>حزم الموارد</span></button>
+      <button class="side-link" data-prime-view="play" data-prime-news="true"><svg class="ico"><use href="#i-news"/></svg><span>الأخبار</span></button>
+    </nav>
+    <div class="sb-spacer"></div>
+    <button class="side-link" id="sb-settings"><svg class="ico"><use href="#i-settings"/></svg><span>الإعدادات</span></button>
+    <button class="side-link side-account" id="sb-account"><svg class="ico"><use href="#i-user"/></svg><span>الحساب</span></button>
+    <div class="sb-version" id="sb-version" dir="ltr"></div>
+  </aside>
+
+  <div class="main">
+    <!-- ============ التنقل العلوي ============ -->
+    <nav class="topnav" aria-label="التنقل الرئيسي">
+      <div class="tabs" role="tablist" id="tabs">
+        <button class="tab" role="tab" data-view="play" aria-selected="true"><svg class="ico"><use href="#i-play"/></svg>العب</button>
+        <button class="tab" role="tab" data-view="installs" aria-selected="false"><svg class="ico"><use href="#i-grid"/></svg>الإصدارات</button>
+        <button class="tab" role="tab" data-view="skins" aria-selected="false"><svg class="ico"><use href="#i-shirt"/></svg>السكنات</button>
+        <span class="tab-ind" id="tab-ind"></span>
+      </div>
+      <div class="acct-chip" id="acct-chip" role="button" tabindex="0" aria-label="الحسابات"></div>
+    </nav>
+
+    <!-- ============ العب ============ -->
+    <section class="view" id="view-play" aria-label="العب">
+      <div class="hero">
+        <div class="slides" id="slides" aria-hidden="true"></div>
+        <div class="hero-shade"></div>
+        <div class="caption-chip" id="caption"></div>
+        <div class="hero-copy" dir="rtl">
+          <span class="hero-eyebrow"><span class="live-dot"></span> PRIME LAUNCHER <span class="hero-sep">/</span> MINECRAFT JAVA</span>
+          <h1>عالمك يبدأ <em>من هنا</em></h1>
+          <p>اختر إصدارك، جهّز موداتك، وانطلق في مغامرتك التالية.</p>
+          <span class="hero-version"><svg class="ico sm"><use href="#i-cube"/></svg> إدارة الإصدارات من مكان واحد</span>
+        </div>
+        <div class="hero-bottom">
+          <div class="dots" id="dots" role="tablist" aria-label="شرائح الخلفية"></div>
+          <div class="play-dock" id="play-dock">
+            <button class="btn-play" id="btn-play" type="button"><span class="bar" id="play-bar"></span><span class="lbl" id="play-lbl">العب</span></button>
+            <button class="btn-pick" id="btn-pick" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="pick-panel" aria-label="اختيار النسخة"><svg class="ico"><use href="#i-chevron-down"/></svg></button>
+            <div class="pick-panel" id="pick-panel" hidden>
+              <div class="pick-search"><svg class="ico"><use href="#i-search"/></svg><input id="pick-q" type="text" placeholder="ابحث عن نسخة..." autocomplete="off" role="combobox" aria-expanded="true" aria-controls="pick-list" aria-label="ابحث عن نسخة"></div>
+              <ul class="pick-list" id="pick-list" role="listbox" aria-label="النسخ المثبّتة"></ul>
+              <button class="pick-new" id="pick-new" type="button"><svg class="ico"><use href="#i-plus"/></svg>إنشاء نسخة جديدة</button>
+            </div>
+          </div>
+          <div class="play-sub" id="play-sub"></div>
+        </div>
+      </div>
+
+      <div class="feed">
+        <div class="feed-head">
+          <h2>الأخبار والسيرفرات</h2>
+          <div class="chips" id="feed-chips" role="group" aria-label="تصفية">
+            <button class="chip on" data-f="all">الكل</button>
+            <button class="chip" data-f="news">الأخبار</button>
+            <button class="chip" data-f="servers">السيرفرات</button>
+          </div>
+        </div>
+        <div class="grid" id="feed-grid"></div>
+      </div>
+    </section>
+
+    <!-- ============ الإصدارات / السكنات / المودات (تُستكمل في المراحل التالية) ============ -->
+    <section class="view" id="view-installs" hidden aria-label="الإصدارات">
+      <div class="page">
+        <div class="page-head"><h2>الإصدارات</h2><button class="btn primary" id="inst-new" type="button"><svg class="ico sm"><use href="#i-plus"/></svg>نسخة جديدة</button></div>
+        <div class="toolbar">
+          <div class="chips" id="inst-chips" role="group" aria-label="تصفية النسخ">
+            <button class="chip on" data-f="all" type="button">الكل</button>
+            <button class="chip" data-f="stable" type="button">الإصدارات المستقرة</button>
+            <button class="chip" data-f="snap" type="button">اللقطات</button>
+            <button class="chip" data-f="mod" type="button">المعدّلة</button>
+          </div>
+          <span class="grow"></span>
+          <div class="search"><svg class="ico sm"><use href="#i-search"/></svg><input id="inst-q" type="text" placeholder="ابحث في النسخ..." autocomplete="off" aria-label="ابحث في النسخ"></div>
+          <label class="sort"><span>الترتيب</span><select id="inst-sort"><option value="recent">آخر لعب</option><option value="name">الاسم</option><option value="version">الإصدار</option></select></label>
+        </div>
+        <div class="inst-list" id="inst-list"></div>
+      </div>
+    </section>
+
+    <section class="view" id="view-new" hidden aria-label="إنشاء نسخة جديدة">
+      <form class="ni" id="ni-form" novalidate>
+        <h2 id="ni-title">إنشاء نسخة جديدة</h2>
+
+        <div class="ni-top">
+          <div class="field icon-field"><label id="lb-icon">الأيقونة</label>
+            <button type="button" class="icon-pick" id="ni-icon" aria-haspopup="true" aria-expanded="false" aria-labelledby="lb-icon"></button>
+            <div class="icon-grid" id="ni-icons" hidden role="group" aria-label="اختر أيقونة"></div>
+          </div>
+          <div class="field grow"><label for="ni-name">الاسم</label>
+            <input class="inp" id="ni-name" type="text" maxlength="64" placeholder="نسخة جديدة" autocomplete="off" required aria-describedby="e-name">
+            <p class="err" id="e-name"></p></div>
+        </div>
+
+        <div class="field"><label id="lb-ver">الإصدار</label>
+          <div class="ver-row">
+            <div class="vs-wrap">
+              <button type="button" class="inp sel" id="vs-btn" aria-haspopup="listbox" aria-expanded="false" aria-controls="vs-panel" aria-labelledby="lb-ver"></button>
+              <div class="vs-panel" id="vs-panel" hidden>
+                <div class="pick-search"><svg class="ico"><use href="#i-search"/></svg><input id="vs-q" type="text" placeholder="ابحث عن إصدار..." autocomplete="off" role="combobox" aria-expanded="true" aria-controls="vs-list" aria-label="ابحث عن إصدار"></div>
+                <ul class="pick-list vs-list" id="vs-list" role="listbox" aria-label="الإصدارات"></ul>
+              </div>
+            </div>
+            <div class="seg" role="radiogroup" aria-label="محمّل الألعاب" dir="ltr">
+              <label><input type="radio" name="loader" value="Vanilla" checked><span>Vanilla</span></label>
+              <label><input type="radio" name="loader" value="Fabric"><span>Fabric</span></label>
+              <label><input type="radio" name="loader" value="Forge"><span>Forge</span></label>
+              <label><input type="radio" name="loader" value="NeoForge"><span>NeoForge</span></label>
+            </div>
+          </div>
+          <label class="switch"><input type="checkbox" id="ni-snaps"><span class="sw"></span>إظهار اللقطات</label>
+          <p class="err" id="e-version"></p>
+        </div>
+
+        <div class="field"><label for="ni-dir">دليل اللعبة</label>
+          <div class="with-btn"><input class="inp ltr" id="ni-dir" type="text" dir="ltr" spellcheck="false" autocomplete="off" aria-describedby="e-dir"><button type="button" class="btn" id="ni-dir-br">استعراض</button></div>
+          <p class="err" id="e-dir"></p></div>
+
+        <div class="field"><label for="ni-w">الدقة</label>
+          <div class="res">
+            <input class="inp num" id="ni-w" type="number" min="320" max="7680" placeholder="تلقائي" aria-label="العرض" dir="ltr">
+            <span class="times">×</span>
+            <input class="inp num" id="ni-h" type="number" min="240" max="4320" placeholder="تلقائي" aria-label="الارتفاع" dir="ltr">
+            <label class="switch"><input type="checkbox" id="ni-fs"><span class="sw"></span>ملء الشاشة</label>
+          </div>
+          <p class="err" id="e-res"></p></div>
+
+        <div class="field"><label for="ni-java">ملف جافا التنفيذي</label>
+          <div class="with-btn"><input class="inp ltr" id="ni-java" type="text" dir="ltr" spellcheck="false" autocomplete="off" placeholder="اكتشاف تلقائي"><button type="button" class="btn" id="ni-java-br">استعراض</button><button type="button" class="btn ghost" id="ni-java-auto">تلقائي</button></div>
+          <p class="hint" id="ni-java-hint"></p></div>
+
+        <div class="field"><label for="ni-jvm">وسائط JVM</label>
+          <textarea class="inp ltr jvm" id="ni-jvm" rows="3" dir="ltr" spellcheck="false"></textarea>
+          <div class="ram"><label for="ni-ram">الذاكرة العشوائية المخصصة</label><input type="range" id="ni-ram" min="1024" max="16384" step="512" value="2048"><output class="ltr" id="ni-ram-out" for="ni-ram">2 GB</output></div>
+          <button type="button" class="link-btn" id="ni-jvm-reset">استعادة الافتراضي</button>
+        </div>
+
+        <div class="ni-foot"><button type="button" class="btn" id="ni-cancel">إلغاء</button><button type="submit" class="btn primary" id="ni-create" disabled>إنشاء</button></div>
+      </form>
+    </section>
+    <section class="view" id="view-skins" hidden aria-label="السكنات">
+      <div class="skins">
+        <div class="sk-col">
+          <div class="sk-stage" id="sk-stage" tabindex="0" role="img" aria-label="عارض السكن ثلاثي الأبعاد، اسحب أو استخدم الأسهم للتدوير">
+            <div class="sk-pl" id="sk-pl"></div>
+          </div>
+          <div class="sk-ctrl">
+            <button class="btn sm" id="sk-rot" type="button" aria-pressed="false"><svg class="ico sm"><use href="#i-rotate"/></svg>تدوير</button>
+            <button class="btn sm" id="sk-walk" type="button" aria-pressed="false"><svg class="ico sm"><use href="#i-play"/></svg>مشي</button>
+            <button class="btn sm" id="sk-stop" type="button">إيقاف</button>
+            <span class="grow"></span>
+            <div class="seg sm" role="radiogroup" aria-label="نموذج الذراع" dir="ltr">
+              <label><input type="radio" name="skmodel" value="classic" checked><span>Classic</span></label>
+              <label><input type="radio" name="skmodel" value="slim"><span>Slim</span></label>
+            </div>
+          </div>
+          <p class="sk-note"><svg class="ico sm"><use href="#i-info"/></svg>يظهر السكن لديك دائماً، ويظهر للآخرين على الخوادم بحسب دعم الخادم (مثل SkinsRestorer)</p>
+        </div>
+        <div class="sk-col">
+          <div class="drop" id="sk-drop" tabindex="0" role="button" aria-label="رفع ملف سكن" data-state="idle"></div>
+          <input type="file" id="sk-file" accept="image/png" hidden>
+          <div class="sk-form" id="sk-form" hidden>
+            <label for="sk-name">اسم السكن</label>
+            <input class="inp" id="sk-name" type="text" maxlength="40" autocomplete="off">
+            <div class="row-actions"><button class="btn" id="sk-save" type="button">حفظ في المكتبة</button><button class="btn primary" id="sk-save-apply" type="button">حفظ وتطبيق</button></div>
+          </div>
+          <h3 class="sec-title lib-title">مكتبة السكنات</h3>
+          <div class="sk-grid" id="sk-grid"></div>
+          <label class="switch sk-all"><input type="checkbox" id="sk-all"><span class="sw"></span>السكنات للجميع<small>يُفعَّل مع التشغيل الفعلي في المرحلة التالية (authlib-injector)</small></label>
+        </div>
+      </div>
+    </section>
+    <section class="view" id="view-mods" hidden aria-label="تصفح المودات">
+      <div class="page">
+        <div class="page-head"><h2 id="mods-title">تصفح المودات</h2>
+          <label class="sort"><span>التثبيت في</span><select id="mods-inst" aria-label="النسخة الهدف"></select></label></div>
+        <div class="toolbar">
+          <div class="dtabs flat" role="tablist" id="mods-tabs">
+            <button type="button" role="tab" data-t="mod" aria-selected="true">المودات</button>
+            <button type="button" role="tab" data-t="modpack" aria-selected="false">حزم المودات</button>
+            <button type="button" role="tab" data-t="resourcepack" aria-selected="false">حزم الموارد</button>
+          </div>
+          <span class="grow"></span>
+          <div class="search"><svg class="ico sm"><use href="#i-search"/></svg><input id="mods-q" type="text" placeholder="ابحث عن مود أو حزمة..." autocomplete="off" aria-label="بحث"></div>
+        </div>
+        <div class="toolbar">
+          <label class="sort"><span>محمّل الألعاب</span><select id="mods-loader"><option value="">الكل</option><option value="fabric">Fabric</option><option value="forge">Forge</option><option value="neoforge">NeoForge</option><option value="quilt">Quilt</option></select></label>
+          <label class="sort"><span>إصدار اللعبة</span><select id="mods-ver"><option value="">كل الإصدارات</option></select></label>
+          <label class="sort"><span>الفئة</span><select id="mods-cat"></select></label>
+        </div>
+        <div class="notice" id="mods-notice" hidden><svg class="ico"><use href="#i-key"/></svg><div><p id="mods-note"></p><button class="btn sm" id="mods-keys" type="button" hidden>فتح مفاتيح الخدمات</button></div></div>
+        <div class="grid" id="mods-grid"></div>
+        <div class="more-wrap"><button class="btn" id="mods-more" type="button" hidden>عرض المزيد</button></div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<div class="toasts" id="toasts" aria-live="polite"></div>
+<div class="menu" id="row-menu" role="menu" aria-label="خيارات النسخة" hidden></div>
+
+<dialog class="dlg sm" id="dlg-confirm" aria-labelledby="cf-title">
+  <div class="dlg-body"><h2 id="cf-title"></h2><p class="muted" id="cf-text"></p></div>
+  <footer class="dlg-foot"><span class="grow"></span><button class="btn ghost" id="cf-no" type="button">إلغاء</button><button class="btn primary" id="cf-yes" type="button">تأكيد</button></footer>
+</dialog>
+
+<!-- ============ الإعدادات ============ -->
+<dialog class="dlg" id="dlg-settings" aria-labelledby="set-title">
+  <header class="dlg-head"><h2 id="set-title">الإعدادات</h2><button class="icon-btn" data-close aria-label="إغلاق"><svg class="ico"><use href="#i-close"/></svg></button></header>
+  <div class="dlg-body">
+    <h3 class="sec-title"><svg class="ico"><use href="#i-key"/></svg>مفاتيح الخدمات</h3>
+    <p class="muted">تُحفظ المفاتيح على جهازك فقط ولا تُعرض مرة أخرى بعد الحفظ.</p>
+
+    <div class="field">
+      <label for="k-ms">معرّف تطبيق Azure <span class="pill" id="st-ms"></span></label>
+      <div class="input-wrap" dir="ltr"><input id="k-ms" type="password" autocomplete="off" spellcheck="false" placeholder="00000000-0000-0000-0000-000000000000"><button class="icon-btn" data-eye="k-ms" type="button" aria-label="إظهار أو إخفاء"><svg class="ico"><use href="#i-eye"/></svg></button></div>
+      <div class="row-actions"><button class="btn sm" data-test="microsoft" type="button">اختبار المفتاح</button><a href="#" class="link" data-ext="https://learn.microsoft.com/azure/active-directory/develop/quickstart-register-app">كيفية الحصول على المفتاح</a></div>
+      <p class="hint" id="h-ms"></p>
+    </div>
+
+    <div class="field">
+      <label for="k-cf">مفتاح CurseForge <span class="pill" id="st-cf"></span></label>
+      <div class="input-wrap" dir="ltr"><input id="k-cf" type="password" autocomplete="off" spellcheck="false" placeholder="$2a$10$..."><button class="icon-btn" data-eye="k-cf" type="button" aria-label="إظهار أو إخفاء"><svg class="ico"><use href="#i-eye"/></svg></button></div>
+      <div class="row-actions"><button class="btn sm" data-test="curseforge" type="button">اختبار المفتاح</button><a href="#" class="link" data-ext="https://console.curseforge.com/">كيفية الحصول على المفتاح</a></div>
+      <p class="hint" id="h-cf"></p>
+    </div>
+  </div>
+  <footer class="dlg-foot">
+    <button class="btn ghost" id="open-about" type="button"><svg class="ico"><use href="#i-info"/></svg>عن البرنامج</button>
+    <span class="grow"></span>
+    <button class="btn ghost" data-close type="button">إغلاق</button>
+    <button class="btn primary" id="keys-save" type="button">حفظ</button>
+  </footer>
+</dialog>
+
+<!-- ============ عن البرنامج ============ -->
+<dialog class="dlg about" id="dlg-about" aria-labelledby="ab-title">
+  <div class="dlg-body center">
+    <svg class="about-logo"><use href="#i-logo"/></svg>
+    <h2 id="ab-title">Prime Launcher</h2>
+    <p class="ver" dir="ltr" id="ab-ver"></p>
+    <p class="by" dir="ltr">by Gmu Studios</p>
+    <p class="muted">منصة عربية لتشغيل ماينكرافت وإدارة النسخ والحسابات والسكنات والمودات في واجهة واحدة هادئة وسريعة.</p>
+    <div class="row-actions center">
+      <button class="btn" id="check-upd" type="button">التحقق من التحديثات</button>
+    </div>
+    <div class="links">
+      <button class="icon-btn" data-ext="https://modrinth.com" aria-label="Modrinth"><svg class="ico"><use href="#i-modrinth"/></svg></button>
+      <button class="icon-btn" data-ext="https://www.curseforge.com/minecraft" aria-label="CurseForge"><svg class="ico"><use href="#i-curseforge"/></svg></button>
+    </div>
+  </div>
+  <footer class="dlg-foot"><span class="grow"></span><button class="btn primary" data-close type="button">حسنًا</button></footer>
+</dialog>
+
+<!-- ============ الحسابات ============ -->
+<dialog class="dlg" id="dlg-acc" aria-labelledby="acc-title">
+  <header class="dlg-head"><h2 id="acc-title">الحسابات</h2><button class="icon-btn" data-close aria-label="إغلاق"><svg class="ico"><use href="#i-close"/></svg></button></header>
+  <div class="dlg-body">
+    <div class="dtabs" role="tablist">
+      <button type="button" role="tab" id="atab-ms" data-t="ms" aria-selected="true">حساب Microsoft</button>
+      <button type="button" role="tab" id="atab-off" data-t="off" aria-selected="false">حساب غير متصل (أوفلاين)</button>
+    </div>
+    <div id="ap-ms" role="tabpanel" aria-labelledby="atab-ms">
+      <div class="notice" id="ms-nokey" hidden><svg class="ico"><use href="#i-key"/></svg><div><p>أضف معرّف تطبيق Azure لتفعيل تسجيل الدخول عبر Microsoft</p><button type="button" class="btn sm" id="ms-keys">فتح مفاتيح الخدمات</button></div></div>
+      <div id="ms-idle" hidden><p class="muted">سجّل الدخول بحسابك لرفع السكن وتشغيل الخوادم الرسمية.</p><button type="button" class="btn primary" id="ms-login">تسجيل الدخول عبر Microsoft</button></div>
+      <div id="ms-wait" hidden class="ms-wait">
+        <p>افتح الصفحة التالية وأدخل الرمز لإكمال تسجيل الدخول:</p>
+        <p class="ltr uri" id="ms-uri"></p>
+        <div class="code ltr" id="ms-code" aria-live="polite"></div>
+        <div class="row-actions center"><button type="button" class="btn" id="ms-open">فتح الصفحة</button><button type="button" class="btn ghost" id="ms-cancel">إلغاء</button></div>
+        <p class="muted center-t">بانتظار التأكيد...</p>
+      </div>
+      <p class="hint err" id="ms-err" role="alert"></p>
+    </div>
+    <div id="ap-off" role="tabpanel" aria-labelledby="atab-off" hidden>
+      <label class="fl" for="acc-name">اسم المستخدم</label>
+      <div class="with-btn"><input class="inp ltr" id="acc-name" type="text" dir="ltr" maxlength="32" autocomplete="off" spellcheck="false" placeholder="Steve" aria-describedby="acc-err"><button type="button" class="btn primary" id="acc-login">تسجيل الدخول</button></div>
+      <p class="err" id="acc-err" role="alert"></p>
+      <p class="muted sm-t">من 3 إلى 16 حرفًا: أحرف إنجليزية وأرقام و(_) فقط.</p>
+    </div>
+    <h3 class="sec-title lib-title">الحسابات المحفوظة</h3>
+    <ul class="acc-list" id="acc-list"></ul>
+  </div>
+</dialog>
+
+<script src="src/data/mock.js"></script>
+<script src="src/data/blocks.js"></script>
+<script src="src/installs.js"></script>
+<script src="src/accounts.js"></script>
+<script src="src/skins.js"></script>
+<script src="src/mods.js"></script>
+<script src="renderer.js"></script>
+</body>
+</html>

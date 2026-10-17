@@ -1,0 +1,132 @@
+[
+ {
+  "id": "24w14a",
+  "type": "snapshot",
+  "time": ""
+ },
+ {
+  "id": "23w51b",
+  "type": "snapshot",
+  "time": ""
+ },
+ {
+  "id": "1.21.4",
+  "type": "release",
+  "time": ""
+ },
+ {
+  "id": "1.21.3",
+  "type": "release",
+  "time": ""
+ },
+ {
+  "id": "1.21.1",
+  "type": "release",
+  "time": ""
+ },
+ {
+  "id": "1.21",
+  "type": "release",
+  "time": ""
+ },
+ {
+  "id": "1.20.6",
+  "type": "release",
+  "time": ""
+ },
+ {
+  "id": "1.20.4",
+  "type": "release",
+  "time": ""
+ },
+ {
+  "id": "1.20.2",
+  "type": "release",
+  "time": ""
+ },
+ {
+  "id": "1.20.1",
+  "type": "release",
+  "time": ""
+ },
+ {
+  "id": "1.19.4",
+  "type": "release",
+  "time": ""
+ },
+ {
+  "id": "1.19.2",
+  "type": "release",
+  "time": ""
+ },
+ {
+  "id": "1.18.2",
+  "type": "release",
+  "time": ""
+ },
+ {
+  "id": "1.17.1",
+  "type": "release",
+  "time": ""
+ },
+ {
+  "id": "1.16.5",
+  "type": "release",
+  "time": ""
+ },
+ {
+  "id": "1.15.2",
+  "type": "release",
+  "time": ""
+ },
+ {
+  "id": "1.14.4",
+  "type": "release",
+  "time": ""
+ },
+ {
+  "id": "1.13.2",
+  "type": "release",
+  "time": ""
+ },
+ {
+  "id": "1.12.2",
+  "type": "release",
+  "time": ""
+ },
+ {
+  "id": "1.11.2",
+  "type": "release",
+  "time": ""
+ },
+ {
+  "id": "1.10.2",
+  "type": "release",
+  "time": ""
+ },
+ {
+  "id": "1.9.4",
+  "type": "release",
+  "time": ""
+ },
+ {
+  "id": "1.8.9",
+  "type": "release",
+  "time": ""
+ },
+ {
+  "id": "1.7.10",
+  "type": "release",
+  "time": ""
+ },
+ {
+  "id": "b1.7.3",
+  "type": "old_beta",
+  "time": ""
+ },
+ {
+  "id": "a1.2.6",
+  "type": "old_alpha",
+  "time": ""
+ }
+]
