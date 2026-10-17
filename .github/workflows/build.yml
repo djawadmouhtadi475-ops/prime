@@ -1,3 +1,4 @@
+
 name: Build Prime Launcher
 
 on:
@@ -12,33 +13,39 @@ permissions:
 jobs:
   build-windows:
     runs-on: windows-latest
-    # لتفعيل لينكس/ماك: احذف runs-on أعلاه وفعّل المصفوفة التالية
-    # strategy:
-    #   matrix:
-    #     os: [windows-latest, ubuntu-latest, macos-latest]
-    # runs-on: ${{ matrix.os }}
-    steps:
-      - uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
+          # أزلنا cache: npm حتى لا يتطلب package-lock.json مسبقًا
 
       - name: Install dependencies
         shell: bash
         run: |
-          if [ -f package-lock.json ]; then npm ci; else npm install; fi
+          if [ -f package-lock.json ]; then
+            npm ci
+          else
+            npm install
+          fi
 
       - name: Create keys.json
         shell: bash
+        env:
+          MICROSOFT_CLIENT_ID: ${{ secrets.MICROSOFT_CLIENT_ID }}
+          CURSEFORGE_API_KEY: ${{ secrets.CURSEFORGE_API_KEY }}
         run: |
-          printf '{"MICROSOFT_CLIENT_ID":"%s","CURSEFORGE_API_KEY":"%s"}' "${{ secrets.MICROSOFT_CLIENT_ID }}" "${{ secrets.CURSEFORGE_API_KEY }}" > keys.json
+          node -e "require('fs').writeFileSync('keys.json', JSON.stringify({MICROSOFT_CLIENT_ID: process.env.MICROSOFT_CLIENT_ID || '', CURSEFORGE_API_KEY: process.env.CURSEFORGE_API_KEY || ''}))"
 
-      - name: Build
+      - name: Build Windows installer
         run: npx electron-builder --win --publish never
 
-      - uses: actions/upload-artifact@v4
+      - name: Upload Windows installer
+        uses: actions/upload-artifact@v4
         with:
           name: PrimeLauncher-windows
           path: dist/*.exe
