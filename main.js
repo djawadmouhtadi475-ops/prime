@@ -67,6 +67,35 @@ app.whenReady().then(() => {
     return (await shell.openPath(x.gameDir)) === '';
   });
   ipcMain.handle('versions:get', () => sys.getVersions());
+  // أخبار رسمية مباشرة من Minecraft.net، مع بديل حي من بيان إصدارات Mojang عند تعطل RSS.
+  let newsCache = { at: 0, list: [] };
+  ipcMain.handle('news:get', async () => {
+    if (Date.now() - newsCache.at < 10 * 60 * 1000 && newsCache.list.length) return { list: newsCache.list, source: 'cache' };
+    const decode = (v) => String(v || '').replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, '$1').replace(/<[^>]+>/g, ' ').replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#39;|&apos;/g, "'").replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&#(\d+);/g, (_m, n) => String.fromCodePoint(Number(n))).replace(/\s+/g, ' ').trim();
+    try {
+      const r = await fetch('https://www.minecraft.net/en-us/feeds/community-content/rss', { headers: { 'User-Agent': 'PrimeLauncher/0.3.9', Accept: 'application/rss+xml, application/xml, text/xml' }, signal: AbortSignal.timeout(9000) });
+      if (r.ok) {
+        const xml = await r.text();
+        const list = [...xml.matchAll(/<item(?:\s[^>]*)?>([\s\S]*?)<\/item>/gi)].slice(0, 12).map((m, i) => {
+          const item = m[1]; const field = (name) => (item.match(new RegExp('<' + name + '(?:\\s[^>]*)?>([\\s\\S]*?)<\\/' + name + '>', 'i')) || [,''])[1];
+          const title = decode(field('title')); const link = decode(field('link')); const date = decode(field('pubDate')); const desc = decode(field('description'));
+          if (!title || !/^https:\/\/([a-z0-9-]+\.)*minecraft\.net\//i.test(link)) return null;
+          return { id: 'official-' + i, tag: 'Minecraft.net', title, date: date ? new Date(date).toLocaleDateString('ar', { year: 'numeric', month: 'short', day: 'numeric' }) : '', summary: desc.slice(0, 240) || 'اقرأ الخبر الرسمي على موقع Minecraft.', art: ['dawn','frost','sakura','cave'][i % 4], url: link };
+        }).filter(Boolean);
+        if (list.length) { newsCache = { at: Date.now(), list }; return { list, source: 'official' }; }
+      }
+    } catch (_) { /* نستخدم بيان Mojang الرسمي عند تعذر موجز الأخبار */ }
+    try {
+      const r = await fetch('https://piston-meta.mojang.com/mc/game/version_manifest_v2.json', { headers: { 'User-Agent': 'PrimeLauncher/0.3.9', Accept: 'application/json' }, signal: AbortSignal.timeout(9000) });
+      if (!r.ok) throw new Error('manifest unavailable');
+      const manifest = await r.json();
+      const selected = manifest.versions.filter(v => v.type === 'release' || v.type === 'snapshot').slice(0, 8);
+      const list = selected.map((v, i) => ({ id: v.id, tag: v.type === 'release' ? 'إصدار رسمي' : 'Snapshot', title: v.type === 'release' ? 'Minecraft Java Edition ' + v.id : 'Minecraft Snapshot ' + v.id, date: v.releaseTime ? new Date(v.releaseTime).toLocaleDateString('ar', { year: 'numeric', month: 'short', day: 'numeric' }) : '', summary: v.type === 'release' ? 'بيانات الإصدار من بيان Mojang الرسمي. افتح صفحة أخبار Minecraft لقراءة ملاحظات الإصدار.' : 'لقطة تطوير رسمية من Mojang. قد تتغير الميزات قبل الإصدار النهائي.', art: ['dawn','frost','sakura','cave'][i % 4], url: 'https://www.minecraft.net/en-us/articles' }));
+      newsCache = { at: Date.now(), list }; return { list, source: 'manifest' };
+    } catch (_) {
+      return { list: [], source: 'offline' };
+    }
+  });
   ipcMain.handle('java:detect', () => sys.detectJava());
   ipcMain.handle('dialog:folder', async () => {
     const r = await dialog.showOpenDialog(win, { properties: ['openDirectory', 'createDirectory'] });

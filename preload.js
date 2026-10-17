@@ -21,6 +21,7 @@ contextBridge.exposeInMainWorld('prime', {
     openFolder: (id) => call('installs:open', id)
   },
   versions: { get: () => call('versions:get') },
+  news: { get: () => call('news:get') },
   java: { detect: () => call('java:detect') },
   dialog: { folder: () => call('dialog:folder'), file: (exts) => call('dialog:file', exts) },
   accounts: {

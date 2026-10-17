@@ -35,11 +35,12 @@
 
   /* ---------- قائمة الإصدارات ---------- */
   function seed() {
-    return A.mock.installations.map((x) => ({ ...x, gameDir: defaultDir(x.name), width: null, height: null, fullscreen: false, java: '', jvm: DEFAULT_JVM, ram: 2048, created: Date.now() }));
+    // لا تنشئ نسخًا وهمية؛ تظهر النسخ فقط بعد أن ينشئها المستخدم فعليًا.
+    return [];
   }
   async function load() {
     let l = await window.prime.installs.get();
-    if (!l) { l = seed(); }
+    if (!Array.isArray(l)) { l = seed(); }
     list = await window.prime.installs.set(l);
     A.state.installs = list;
     const saved = localStorage.getItem('prime.selected');

@@ -43,3 +43,9 @@ npm run build   # إنشاء ملفات التثبيت داخل مجلد dist
 
 ## الأمان
 لا تُرسل المفاتيح إلى الواجهة أبدًا (قيم منطقية فقط)، ولا تُسجَّل ولا تُخزَّن في localStorage.
+
+
+## Live official data
+- The version picker reads Mojang’s version manifest (`piston-meta.mojang.com`) online and caches results. The bundled fallback includes release 26.3; snapshot IDs are deliberately not guessed and are loaded from the live manifest.
+- The home feed requests the Minecraft.net community RSS feed. If it is unavailable, it falls back to real release/snapshot metadata from Mojang’s version manifest. It no longer displays fabricated news or example server populations.
+- Fresh installs start with no fake game instances or sample player account; the user creates a real installation or signs in.

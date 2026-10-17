@@ -5,7 +5,7 @@ const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const ico = (n, c = '') => `<svg class="ico ${c}" aria-hidden="true"><use href="#i-${n}"/></svg>`;
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const M = window.MOCK;
-const state = { view: 'play', installs: [], selected: null, filter: 'all', launching: false, keys: { microsoft: false, curseforge: false } };
+const state = { view: 'play', installs: [], selected: null, filter: 'all', newsItems: [], launching: false, keys: { microsoft: false, curseforge: false } };
 
 /* ---------- إشعارات ---------- */
 function toast(msg, err = false) {
@@ -145,7 +145,8 @@ function refreshPicker() { updateSub(); if (!$('#pick-panel').hidden) renderList
 const pingCls = (ms) => (ms < 80 ? '' : ms < 140 ? 'mid' : 'bad');
 const pingBars = (ms) => { const n = ms < 60 ? 4 : ms < 100 ? 3 : ms < 160 ? 2 : 1; return `<span class="ping ${pingCls(ms)}" title="${ms} ms">${[1, 2, 3, 4].map((k) => `<i class="${k <= n ? 'on' : ''}"></i>`).join('')}</span>`; };
 function newsCard(n) {
-  return `<article class="card"><div class="cover" data-art="${n.art}"><span class="tag">${esc(n.tag)}</span></div><div class="card-body"><h3 class="card-title">${esc(n.title)}</h3><div class="card-date">${esc(n.date)}</div><p class="card-sum">${esc(n.summary)}</p></div></article>`;
+  const url = /^https:\/\//i.test(n.url || '') ? n.url : 'https://www.minecraft.net/en-us/articles';
+  return `<article class="card news-card" role="link" tabindex="0" data-news-url="${esc(url)}"><div class="cover" data-art="${esc(n.art || 'dawn')}"><span class="tag">${esc(n.tag || 'Minecraft')}</span></div><div class="card-body"><h3 class="card-title">${esc(n.title)}</h3><div class="card-date">${esc(n.date || '')}</div><p class="card-sum">${esc(n.summary || '')}</p><span class="news-read">قراءة الخبر الرسمي ↗</span></div></article>`;
 }
 function serverCard(s) {
   return `<article class="card"><div class="banner" data-c1="${s.color[0]}" data-c2="${s.color[1]}">${esc(s.name)}</div><div class="card-body">
@@ -156,20 +157,26 @@ function serverCard(s) {
 function renderFeed(loading) {
   const g = $('#feed-grid');
   if (loading) { g.innerHTML = '<div class="skel"></div>'.repeat(4); return; }
-  const f = state.filter;
-  const items = [...(f !== 'servers' ? M.news.map(newsCard) : []), ...(f !== 'news' ? M.servers.map(serverCard) : [])];
-  g.innerHTML = items.length ? items.join('') : `<div class="empty grid-empty">${ico('empty', 'empty-ill')}<h3>لا توجد عناصر</h3><p>لم نعثر على أخبار أو سيرفرات في هذا القسم حاليًا.</p></div>`;
+  const items = state.newsItems || [];
+  g.innerHTML = items.length ? items.map(newsCard).join('') : `<div class="empty grid-empty">${ico('news', 'empty-ill')}<h3>تعذّر تحميل الأخبار</h3><p>لم نعرض أخبارًا تجريبية. تحقق من اتصال الإنترنت ثم أعد تشغيل اللانشر.</p><button class="btn secondary sm" id="news-retry">إعادة المحاولة</button></div>`;
   $$('.cover', g).forEach((c) => { c.style.backgroundImage = `linear-gradient(to top,rgba(0,0,0,.35),transparent),url("assets/art/${c.dataset.art}.svg")`; });
-  $$('.banner', g).forEach((b) => { b.style.background = `linear-gradient(135deg,${b.dataset.c1},${b.dataset.c2})`; });
   $$('.card', g).forEach((c, k) => { c.style.animationDelay = k * 40 + 'ms'; });
 }
+async function loadRealNews() {
+  renderFeed(true);
+  try { const result = await window.prime.news.get(); state.newsItems = Array.isArray(result?.list) ? result.list : []; }
+  catch (_) { state.newsItems = []; }
+  renderFeed(false);
+}
 function initFeed() {
-  renderFeed(true); setTimeout(() => renderFeed(false), 650);
+  state.newsItems = []; loadRealNews();
   $('#feed-chips').addEventListener('click', (e) => {
     const c = e.target.closest('.chip'); if (!c) return;
-    $$('.chip').forEach((x) => x.classList.toggle('on', x === c)); state.filter = c.dataset.f; renderFeed(true); setTimeout(() => renderFeed(false), 300);
+    $$('.chip').forEach((x) => x.classList.toggle('on', x === c)); state.filter = c.dataset.f; loadRealNews();
   });
   $('#feed-grid').addEventListener('click', async (e) => {
+    if (e.target.closest('#news-retry')) { loadRealNews(); return; }
+    const article = e.target.closest('[data-news-url]'); if (article) { window.prime.openExternal(article.dataset.newsUrl); return; }
     const cp = e.target.closest('[data-copy]'), jn = e.target.closest('[data-join]');
     if (cp) {
       try { await navigator.clipboard.writeText(cp.dataset.copy); } catch { /* تجاهل */ }

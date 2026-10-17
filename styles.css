@@ -463,3 +463,6 @@ body{background:var(--bg-1)}
 .hero-version{display:inline-flex;align-items:center;gap:7px;margin-top:17px;padding:7px 12px;border-radius:7px;background:rgba(3,18,14,.64);border:1px solid rgba(255,255,255,.14);font-size:12px;color:#e8fff6}
 .hero-version .ico{color:var(--accent)}
 @media(max-width:850px){.hero-copy{top:52px;right:18px;max-width:85%}.hero-copy h1{font-size:30px}.hero-copy p{max-width:300px}.hero-eyebrow{font-size:9px}}
+
+/* Official live news cards */
+.news-card{cursor:pointer;transition:transform .18s ease,border-color .18s ease}.news-card:hover,.news-card:focus-visible{transform:translateY(-3px);outline:none;border-color:var(--mint,#83f5c5)}.news-read{display:inline-block;margin-top:10px;color:var(--mint,#83f5c5);font-size:12px;font-weight:700}
