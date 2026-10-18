@@ -1,9 +1,13 @@
+
 {
   "name": "prime-launcher",
   "productName": "Prime Launcher",
   "version": "0.3.9",
   "description": "Prime Launcher — لانشر ماينكرافت عربي من Gmu Studios",
-  "author": "Gmu Studios",
+  "author": {
+    "name": "Gmu Studios",
+    "email": "djawadmouhtadi475@gmail.com"
+  },
   "license": "UNLICENSED",
   "main": "main.js",
   "scripts": {
@@ -64,7 +68,8 @@
         "deb"
       ],
       "icon": "assets/icon.png",
-      "category": "Game"
+      "category": "Game",
+      "maintainer": "your-real-email@example.com"
     },
     "mac": {
       "target": [
