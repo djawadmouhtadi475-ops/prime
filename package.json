@@ -11,7 +11,10 @@
     "postinstall": "node scripts/get-fonts.js",
     "make-icons": "node scripts/make-icons.js",
     "prebuild": "node scripts/ensure-keys.js",
-    "build": "electron-builder --win --publish never"
+    "build": "electron-builder --publish never",
+    "build:linux": "electron-builder --linux AppImage deb --publish never",
+    "build:mac": "electron-builder --mac dmg zip --publish never",
+    "build:windows": "electron-builder --win --publish never"
   },
   "dependencies": {
     "adm-zip": "0.5.16"
@@ -24,7 +27,6 @@
     "appId": "com.gmustudios.primelauncher",
     "productName": "Prime Launcher",
     "artifactName": "PrimeLauncher-${version}-${os}.${ext}",
-    "icon": "assets/icon.ico",
     "directories": {
       "output": "dist"
     },
@@ -55,6 +57,22 @@
       "oneClick": false,
       "allowToChangeInstallationDirectory": true,
       "shortcutName": "Prime Launcher"
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "icon": "assets/icon.png",
+      "category": "Game"
+    },
+    "mac": {
+      "target": [
+        "dmg",
+        "zip"
+      ],
+      "icon": "assets/icon.icns",
+      "category": "public.app-category.games"
     }
   }
 }
